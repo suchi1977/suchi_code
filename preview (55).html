@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Rotating Circular Carousel</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#140b2d;
+    overflow:hidden;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* MAIN SECTION */
+
+.carousel-container{
+    position:relative;
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* CENTER IMAGE */
+
+.main-image{
+    position:absolute;
+    width:340px;
+    height:340px;
+    border-radius:50%;
+    overflow:hidden;
+    border:6px solid white;
+    z-index:10;
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+
+.main-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:1s;
+}
+
+/* CIRCLE */
+
+.circle{
+    position:relative;
+    width:700px;
+    height:700px;
+    border-radius:50%;
+    transition:1s ease;
+}
+
+/* SMALL CIRCULAR IMAGES */
+
+.item{
+    position:absolute;
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    overflow:hidden;
+    cursor:pointer;
+    border:4px solid white;
+    transition:0.6s;
+    box-shadow:0 10px 20px rgba(0,0,0,0.5);
+}
+
+.item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.item:hover{
+    transform:scale(1.1);
+}
+
+/* BUTTONS */
+
+.buttons{
+    position:absolute;
+    bottom:40px;
+    display:flex;
+    gap:20px;
+}
+
+button{
+    width:60px;
+    height:60px;
+    border:none;
+    border-radius:50%;
+    background:white;
+    font-size:26px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .circle{
+        width:430px;
+        height:430px;
+    }
+
+    .item{
+        width:90px;
+        height:90px;
+    }
+
+    .main-image{
+        width:220px;
+        height:220px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="carousel-container">
+
+    <!-- CENTER IMAGE -->
+
+    <div class="main-image">
+        <img id="mainImg" src="">
+    </div>
+
+    <!-- ROTATING CIRCLE -->
+
+    <div class="circle" id="circle"></div>
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+        <button id="prev">‹</button>
+        <button id="next">›</button>
+    </div>
+
+</div>
+
+<script>
+
+const images = [
+
+"https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200",
+
+"https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1200",
+
+"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200",
+
+"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200",
+
+"https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=1200",
+
+"https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=80&w=1200"
+
+];
+
+const circle = document.getElementById("circle");
+const mainImg = document.getElementById("mainImg");
+
+let active = 0;
+let rotation = 0;
+
+/* CREATE IMAGES */
+
+function createCarousel(){
+
+    circle.innerHTML = "";
+
+    const total = images.length;
+    const radius = 280;
+
+    images.forEach((src,index)=>{
+
+        const angle = (360 / total) * index;
+
+        const item = document.createElement("div");
+        item.className = "item";
+
+        const x = radius * Math.cos((angle - 90) * Math.PI/180);
+        const y = radius * Math.sin((angle - 90) * Math.PI/180);
+
+        item.style.left = `calc(50% + ${x}px - 70px)`;
+        item.style.top = `calc(50% + ${y}px - 70px)`;
+
+        item.innerHTML = `<img src="${src}">`;
+
+        item.addEventListener("click",()=>{
+
+            active = index;
+
+            rotateCarousel();
+        });
+
+        circle.appendChild(item);
+    });
+
+    mainImg.src = images[active];
+}
+
+/* ROTATE */
+
+function rotateCarousel(){
+
+    const total = images.length;
+
+    const rotateDeg = -(360 / total) * active;
+
+    rotation = rotateDeg;
+
+    circle.style.transform = `rotate(${rotation}deg)`;
+
+    /* KEEP IMAGES STRAIGHT */
+
+    document.querySelectorAll(".item").forEach((item)=>{
+
+        item.style.transform = `rotate(${-rotation}deg)`;
+    });
+
+    mainImg.src = images[active];
+}
+
+/* NEXT */
+
+document.getElementById("next").onclick = ()=>{
+
+    active++;
+
+    if(active >= images.length){
+        active = 0;
+    }
+
+    rotateCarousel();
+};
+
+/* PREVIOUS */
+
+document.getElementById("prev").onclick = ()=>{
+
+    active--;
+
+    if(active < 0){
+        active = images.length - 1;
+    }
+
+    rotateCarousel();
+};
+
+createCarousel();
+rotateCarousel();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>suchitra Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#000;
+      color:#fff;
+      overflow-x:hidden;
+    }
+
+    ::selection{
+      background:#ff5b00;
+      color:#fff;
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar{
+      width:8px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:#ff5b00;
+      border-radius:20px;
+    }
+
+    /* NAVBAR */
+
+    header{
+      width:100%;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:1000;
+      padding:20px 8%;
+      background:rgba(0,0,0,0.8);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .logo{
+      font-size:2rem;
+      font-weight:700;
+      color:#fff;
+    }
+
+    .logo span{
+      color:#ff5b00;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:40px;
+      list-style:none;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:#fff;
+      font-size:1rem;
+      position:relative;
+      transition:.3s;
+    }
+
+    .nav-links a::after{
+      content:'';
+      position:absolute;
+      width:0;
+      height:2px;
+      background:#ff5b00;
+      left:0;
+      bottom:-5px;
+      transition:.4s;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after{
+      width:100%;
+    }
+
+    .nav-links a:hover{
+      color:#ff5b00;
+    }
+
+    /* HERO SECTION */
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:150px 8% 80px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      width:500px;
+      height:500px;
+      background:#ff5b00;
+      filter:blur(180px);
+      opacity:.2;
+      right:-150px;
+      top:0;
+      border-radius:50%;
+    }
+
+    .hero-text{
+      width:50%;
+      z-index:10;
+      animation:fadeUp 1s ease;
+    }
+
+    .hero-text h4{
+      font-size:1.5rem;
+      margin-bottom:10px;
+      letter-spacing:2px;
+    }
+
+    .hero-text h1{
+      font-size:4rem;
+      line-height:1.2;
+      margin-bottom:15px;
+    }
+
+    .hero-text h1 span{
+      color:#ff5b00;
+    }
+
+    .hero-text h3{
+      font-size:1.8rem;
+      color:#ff5b00;
+      margin-bottom:20px;
+    }
+
+    .hero-text p{
+      font-size:1rem;
+      line-height:1.9;
+      color:#d0d0d0;
+      margin-bottom:35px;
+      max-width:550px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:15px 40px;
+      background:#ff5b00;
+      color:#fff;
+      border-radius:50px;
+      text-decoration:none;
+      font-weight:600;
+      transition:.4s;
+      box-shadow:0 0 20px rgba(255,91,0,0.5);
+    }
+
+    .btn:hover{
+      transform:translateY(-5px) scale(1.03);
+      box-shadow:0 0 30px rgba(255,91,0,0.8);
+    }
+
+    .socials{
+      margin-top:35px;
+      display:flex;
+      gap:20px;
+    }
+
+    .socials a{
+      width:50px;
+      height:50px;
+      border:2px solid #ff5b00;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#ff5b00;
+      text-decoration:none;
+      font-size:1.3rem;
+      transition:.4s;
+    }
+
+    .socials a:hover{
+      background:#ff5b00;
+      color:#fff;
+      transform:translateY(-5px);
+      box-shadow:0 0 25px rgba(255,91,0,0.8);
+    }
+
+    .hero-image{
+      width:40%;
+      display:flex;
+      justify-content:center;
+      position:relative;
+      animation:float 5s ease-in-out infinite;
+    }
+
+    .image-circle{
+      width:450px;
+      height:450px;
+      border-radius:50%;
+      overflow:hidden;
+      position:relative;
+      border:5px solid #ff5b00;
+      box-shadow:
+      0 0 50px #ff5b00,
+      0 0 120px rgba(255,91,0,0.5);
+    }
+
+    .image-circle::before{
+      content:'';
+      position:absolute;
+      inset:-20px;
+      border-radius:50%;
+      background:conic-gradient(#ff5b00, transparent, #ff5b00);
+      animation:spin 6s linear infinite;
+      z-index:-1;
+    }
+
+    .image-circle img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    /* SECTION */
+
+    section{
+      padding:120px 8%;
+      position:relative;
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:3rem;
+      margin-bottom:70px;
+      font-weight:700;
+    }
+
+    .section-title span{
+      color:#ff5b00;
+    }
+
+    /* ABOUT */
+
+    .about{
+      text-align:center;
+    }
+
+    .about img{
+      width:280px;
+      height:280px;
+      border-radius:50%;
+      border:4px solid #ff5b00;
+      object-fit:cover;
+      box-shadow:0 0 50px rgba(255,91,0,0.6);
+      margin-bottom:35px;
+    }
+
+    .about h2{
+      font-size:2.3rem;
+      margin-bottom:20px;
+    }
+
+    .about p{
+      max-width:900px;
+      margin:auto;
+      color:#d0d0d0;
+      line-height:2;
+      margin-bottom:35px;
+    }
+
+    /* SKILLS */
+
+    .skills-wrapper{
+      max-width:900px;
+      margin:auto;
+    }
+
+    .skill{
+      margin-bottom:40px;
+    }
+
+    .skill-info{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+
+    .skill-info h4{
+      letter-spacing:2px;
+      font-weight:500;
+    }
+
+    .bar{
+      width:100%;
+      height:18px;
+      background:#fff;
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .bar span{
+      display:block;
+      height:100%;
+      background:#ff5b00;
+      border-radius:20px;
+      position:relative;
+      animation:grow 2s ease;
+      box-shadow:0 0 15px rgba(255,91,0,0.8);
+    }
+
+    .html{width:90%;}
+    .css{width:55%;}
+    .js{width:80%;}
+    .figma{width:65%;}
+
+    /* SERVICES */
+
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
+    }
+
+    .service-card{
+      background:#111;
+      padding:40px 30px;
+      border-radius:25px;
+      text-align:center;
+      transition:.5s;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+
+    .service-card:hover{
+      transform:translateY(-12px);
+      border-color:#ff5b00;
+      box-shadow:0 0 30px rgba(255,91,0,0.3);
+    }
+
+    .service-card i{
+      font-size:3rem;
+      color:#ff5b00;
+      margin-bottom:20px;
+    }
+
+    .service-card h3{
+      margin-bottom:15px;
+      font-size:1.5rem;
+    }
+
+    .service-card p{
+      color:#d0d0d0;
+      line-height:1.8;
+    }
+
+    /* PORTFOLIO */
+
+    .portfolio-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:30px;
+    }
+
+    .portfolio-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:25px;
+      cursor:pointer;
+    }
+
+    .portfolio-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:.6s;
+    }
+
+    .portfolio-card:hover img{
+      transform:scale(1.1);
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(transparent,#ff5b00);
+      display:flex;
+      align-items:flex-end;
+      padding:30px;
+      opacity:0;
+      transition:.5s;
+    }
+
+    .portfolio-card:hover .overlay{
+      opacity:1;
+    }
+
+    .overlay h3{
+      font-size:1.7rem;
+    }
+
+    /* CONTACT */
+
+    .contact-form{
+      max-width:800px;
+      margin:auto;
+    }
+
+    .contact-form form{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .contact-form input,
+    .contact-form textarea{
+      width:100%;
+      padding:18px 20px;
+      background:#111;
+      border:none;
+      border-radius:15px;
+      color:#fff;
+      font-size:1rem;
+      outline:none;
+      border:1px solid transparent;
+      transition:.4s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus{
+      border-color:#ff5b00;
+      box-shadow:0 0 20px rgba(255,91,0,0.2);
+    }
+
+    textarea{
+      resize:none;
+      height:180px;
+    }
+
+    footer{
+      padding:30px;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.05);
+      color:#aaa;
+      margin-top:80px;
+    }
+
+    /* ANIMATION */
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(-20px);
+      }
+    }
+
+    @keyframes spin{
+      100%{
+        transform:rotate(360deg);
+      }
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(50px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes grow{
+      from{
+        width:0;
+      }
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:991px){
+
+      .hero{
+        flex-direction:column-reverse;
+        text-align:center;
+        gap:80px;
+      }
+
+      .hero-text,
+      .hero-image{
+        width:100%;
+      }
+
+      .hero-text p{
+        margin:auto auto 35px;
+      }
+
+      .socials{
+        justify-content:center;
+      }
+
+      .image-circle{
+        width:330px;
+        height:330px;
+      }
+
+      .hero-text h1{
+        font-size:3rem;
+      }
+
+      .nav-links{
+        display:none;
+      }
+    }
+
+    @media(max-width:600px){
+
+      .section-title{
+        font-size:2.2rem;
+      }
+
+      .hero-text h1{
+        font-size:2.5rem;
+      }
+
+      .hero-text h3{
+        font-size:1.3rem;
+      }
+
+      .image-circle{
+        width:280px;
+        height:280px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+
+  <header>
+    <nav>
+      <div class="logo">sam<span>antha</span></div>
+
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+
+  <section class="hero" id="home">
+
+    <div class="hero-text">
+      <h4>HELLO!</h4>
+
+      <h1>I'm <span>Samantha Smith</span></h1>
+
+      <h3>Full-stack Web Developer</h3>
+
+      <p>
+        Creating futuristic websites with smooth animations,
+        premium UI/UX design, interactive effects and powerful
+        frontend experiences.
+      </p>
+
+      <a href="#" class="btn">Let's Talk</a>
+
+      <div class="socials">
+        <a href="#"><i class="ri-facebook-circle-line"></i></a>
+        <a href="#"><i class="ri-twitter-x-line"></i></a>
+        <a href="#"><i class="ri-instagram-line"></i></a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <div class="image-circle">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1000&auto=format&fit=crop" alt="profile">
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section class="about" id="about">
+
+    <h2 class="section-title">About <span>Me</span></h2>
+
+    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1000&auto=format&fit=crop" alt="">
+
+    <h2>Full-stack Web Developer</h2>
+
+    <p>
+      I specialize in modern web experiences with cinematic animations,
+      3D effects, smooth scrolling and premium interfaces. I create
+      responsive websites that look futuristic and perform beautifully
+      across all devices.
+    </p>
+
+    <a href="#" class="btn">Hire Me</a>
+
+  </section>
+
+  <!-- SKILLS -->
+
+  <section id="skills">
+
+    <h2 class="section-title">My <span>Skills</span></h2>
+
+    <div class="skills-wrapper">
+
+      <div class="skill">
+        <div class="skill-info">
+          <h4>HTML</h4>
+          <h4>90%</h4>
+        </div>
+        <div class="bar">
+          <span class="html"></span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-info">
+          <h4>CSS</h4>
+          <h4>55%</h4>
+        </div>
+        <div class="bar">
+          <span class="css"></span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-info">
+          <h4>JAVASCRIPT</h4>
+          <h4>80%</h4>
+        </div>
+        <div class="bar">
+          <span class="js"></span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-info">
+          <h4>FIGMA</h4>
+          <h4>65%</h4>
+        </div>
+        <div class="bar">
+          <span class="figma"></span>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SERVICES -->
+
+  <section id="services">
+
+    <h2 class="section-title">My <span>Services</span></h2>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <i class="ri-layout-4-line"></i>
+        <h3>Web Design</h3>
+        <p>
+          Premium UI/UX interfaces with smooth transitions,
+          modern aesthetics and engaging layouts.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <i class="ri-code-s-slash-line"></i>
+        <h3>Development</h3>
+        <p>
+          Fast responsive websites built with modern
+          frontend technologies and clean code.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <i class="ri-rocket-2-line"></i>
+        <h3>Branding</h3>
+        <p>
+          Creating futuristic digital experiences with
+          strong visual identity and performance.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PORTFOLIO -->
+
+  <section id="portfolio">
+
+    <h2 class="section-title">My <span>Portfolio</span></h2>
+
+    <div class="portfolio-grid">
+
+      <div class="portfolio-card">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000&auto=format&fit=crop" alt="">
+        <div class="overlay">
+          <h3>Creative Website</h3>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop" alt="">
+        <div class="overlay">
+          <h3>Modern Dashboard</h3>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" alt="">
+        <div class="overlay">
+          <h3>Brand Experience</h3>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+
+  <section id="contact">
+
+    <h2 class="section-title">Contact <span>Me</span></h2>
+
+    <div class="contact-form">
+
+      <form>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea placeholder="Your Message"></textarea>
+        <button class="btn">Send Message</button>
+      </form>
+
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 Samantha Smith | All Rights Reserved
+  </footer>
+
+</body>
+</html>
